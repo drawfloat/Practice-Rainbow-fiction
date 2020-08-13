@@ -50,5 +50,18 @@ module.exports = {
             // "vue$": "vue/dist/vue.js"
         }
     },
+    devServer: {
+        proxy: {
+            '/api': {
+                target: 'http://api.zhuishushenqi.com/',
+                pathRewrite: {
+                    // 这个参数的目的是给代理命名后， 在访问时把命名删除掉。
+                    '^/api': ''
+                },
+                changeOrigin: true, // target是域名的话，需要这个参数，
+                secure: false, // 设置支持https协议的代理
+            },
+        }
+    },
     mode: 'development'
 }

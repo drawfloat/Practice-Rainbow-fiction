@@ -1,27 +1,29 @@
 <template>
   <div class="app-container">
     <!-- 顶部 -->
-    <mt-header fixed title="彩虹小说网"></mt-header>
-    <h1>123</h1>
+    <mt-header fixed title="彩虹阅读"></mt-header>
+
+	<!-- 主体 -->
+	<router-view></router-view>
 
     <!-- 顶部 -->
     <nav class="mui-bar mui-bar-tab">
-			<a id="defaultTab" class="mui-tab-item mui-active" href="tab-webview-subpage-about.html">
-				<span class="mui-icon mui-icon-home"></span>
+			<router-link id="defaultTab" class="mui-tab-item" to="/bookshelf">
+				<span class="mui-icon mui-icon-extra mui-icon-extra-xiaoshuo"></span>
 				<span class="mui-tab-label">首页</span>
-			</a>
-			<a class="mui-tab-item" href="tab-webview-subpage-chat.html">
-				<span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
-				<span class="mui-tab-label">消息</span>
-			</a>
-			<a class="mui-tab-item" href="tab-webview-subpage-contact.html">
-				<span class="mui-icon mui-icon-contact"></span>
-				<span class="mui-tab-label">通讯录</span>
-			</a>
-			<a class="mui-tab-item" href="tab-webview-subpage-setting.html">
-				<span class="mui-icon mui-icon-gear"></span>
-				<span class="mui-tab-label">设置</span>
-			</a>
+			</router-link>
+			<router-link class="mui-tab-item" to="/concentration">
+				<span class="mui-icon mui-icon-navigate"></span>
+				<span class="mui-tab-label">精选</span>
+			</router-link>
+			<router-link class="mui-tab-item" to="/discovery">
+				<span class="mui-icon mui-icon-navigate"><span class="mui-badge">9</span></span>
+				<span class="mui-tab-label">发现</span>
+			</router-link>
+			<router-link class="mui-tab-item" to="/myself">
+				<span class="mui-icon mui-icon-person-filled"></span>
+				<span class="mui-tab-label">我</span>
+			</router-link>
 		</nav>
   </div>
 </template>
