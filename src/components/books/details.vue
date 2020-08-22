@@ -57,7 +57,7 @@
       unicodeToChar(str) {
         if (str) {
           str = str.replace(/^\/agent\//, "");
-          return unescape(str.replace(/＼u/g, "%u"));
+          return unescape(str.replace(/\u/g, "%u"));
         }
         return false;
       },

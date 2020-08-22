@@ -16,8 +16,8 @@
     <div>
       <ul class="bookData">
         <li>
-          <p>{{bookInfo.rating.score}}</p>
-          <p>{{bookInfo.rating.count}}人参与评分</p>
+          <p>{{bookInfo.rating!==undefined&&bookInfo.rating.score}}分</p>
+          <p>{{bookInfo.rating!==undefined&&bookInfo.rating.count}}人参与评分</p>
         </li>
         <li>
           <p>{{bookInfo.retentionRatio}}%</p>
@@ -40,10 +40,18 @@
           <li v-for="item in bookInfo.tags" :key="item._id">{{item}}</li>
         </ul>
       </div>
-      <div class="booklongIntro">
-        <text>{{bookInfo.longIntro}}</text>
-      </div>
-      <div class="bookMenu">目录</div>
+      <div
+        :class="{ expansion : introActive }"
+        class="booklongIntro"
+        id="longIntro"
+      >{{bookInfo.longIntro}}</div>
+      <p class="displayMore" @click="displayMoreFn">{{introActiveText}}</p>
+    </div>
+    <div class="bookMenu">
+      目录
+      <router-link to="">
+        <span>最新章节：{{bookInfo.lastChapter}}</span>
+      </router-link>
     </div>
   </div>
 </template>
@@ -56,6 +64,8 @@
       return {
         bookID: this.$route.params.id,
         bookInfo: [],
+        introActive: true,
+        introActiveText: "﹀",
       };
     },
     created() {
@@ -98,9 +108,26 @@
       unicodeToChar(str) {
         if (str) {
           str = str.replace(/^\/agent\//, "");
-          return unescape(str.replace(/＼u/g, "%u"));
+          return unescape(str.replace(/\u/g, "%u"));
         }
         return false;
+      },
+      displayMoreFn() {
+        this.introActive = !this.introActive;
+        this.introActiveText === "﹀"
+          ? (this.introActiveText = "︿")
+          : (this.introActiveText = "﹀");
+      },
+    },
+    filters: {
+      capitalize(value) {
+        if (!value) return "";
+        value = value.toString();
+        if (value.length > 45) {
+          return value.substr(0, 45);
+        } else {
+          return value;
+        }
       },
     },
   };
@@ -183,6 +210,7 @@
     }
   }
   .bookIntro {
+    position: relative;
     padding-left: 20px;
     .bookTag {
       p {
@@ -193,6 +221,7 @@
       }
       ul {
         overflow: hidden;
+        padding-bottom: 10px;
       }
       li {
         float: left;
@@ -206,12 +235,34 @@
       }
     }
     .booklongIntro {
-      padding: 10px 0 10px 0;
-      font-size: 20px;
-      color: #000;
-      max-width: 100%;
-      max-height: 50px;
-      text-overflow: ellipsis;
+      font-size: 12px;
+      color: #333;
+      white-space: pre-line;
+    }
+  }
+  .expansion {
+    white-space: pre-line;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+  .displayMore {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: red;
+  }
+  .bookMenu {
+    display: flex;
+    font-size: 20px;
+    justify-content: space-between;
+    padding: 20px 0 20px 20px;
+    span {
+      font-size: 12px;
+      color: #aaa;
     }
   }
 </style>
