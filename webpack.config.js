@@ -50,6 +50,7 @@ module.exports = {
             // "vue$": "vue/dist/vue.js"
         }
     },
+    // 解决跨域问题
     devServer: {
         proxy: {
             '/api': {
