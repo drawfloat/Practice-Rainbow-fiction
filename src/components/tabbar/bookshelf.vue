@@ -5,6 +5,14 @@
       <mt-swipe-item></mt-swipe-item>
       <mt-swipe-item></mt-swipe-item>
     </mt-swipe>
+    <div>
+      <input type="text" v-model="$store.state.count" />
+      <!-- <input type="button" value="增加" @click="$store.state.count++" />
+      <input type="button" value="减少" @click="$store.state.count--" />-->
+      <input type="button" value="增加" @click="count_add" />
+      <input type="button" value="减少" @click="count_reduce" />
+      <h3>{{this.$store.getters.optCount}}</h3>
+    </div>
   </div>
 </template>
 
@@ -14,9 +22,15 @@
       return {};
     },
     created() {
-    //   this.getClassification();
+      //   this.getClassification();
     },
     methods: {
+      count_add() {
+        this.$store.commit("increment");
+      },
+      count_reduce() {
+        this.$store.commit("subtract", { a: 1, b: 2 });
+      },
       getClassification() {
         this.axios
           .get("/api/cats/lv2/statistics")

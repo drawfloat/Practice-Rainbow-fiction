@@ -10,20 +10,27 @@
       v-infinite-scroll="loadMore"
       infinite-scroll-disabled="busy"
       infinite-scroll-distance="10"
-      infinite-scroll-immediate-check="false"
-      infinite-scroll-listen-for-event
+      infinite-scroll-immediate-check="true"
     >
       <li class="mui-table-view-cell mui-media" v-for="(item,index) in books" :key="item._id+index">
-        <router-link :to="'/book/'+item._id">
-          <img class="mui-media-object mui-pull-left bookImg" :src="unicodeToChar(item.cover)" />
+        <!-- <router-link :to="'/book/'+item._id">
+          <img class="mui-media-object mui-pull-left bookImg" v-lazy="unicodeToChar(item.cover)" />
           <div class="mui-media-body">
             {{item.title}}
             <p>{{item.author}} • {{item.majorCate}} • {{item.minorCate}}</p>
             <p class="mui-ellipsis">{{item.shortIntro}}</p>
           </div>
-        </router-link>
+        </router-link>-->
+        <div @click="goBookDetail(item._id)">
+          <img class="mui-media-object mui-pull-left bookImg" v-lazy="unicodeToChar(item.cover)" />
+          <div class="mui-media-body">
+            {{item.title}}
+            <p>{{item.author}} • {{item.majorCate}} • {{item.minorCate}}</p>
+            <p class="mui-ellipsis">{{item.shortIntro}}</p>
+          </div>
+        </div>
       </li>
-      <!-- <div class="infinite-scroll-limit"></div> -->
+      <div class="infinite-scroll-limit"></div>
     </ul>
   </div>
 </template>
@@ -103,6 +110,9 @@
           this.busy = false;
         }, 300);
       },
+      goBookDetail(_id) {
+        this.$router.push({ name: "bookInfo", params: { id: _id } });
+      },
     },
   };
 </script>
@@ -120,33 +130,34 @@
   .v-leave-active {
     transition: all 0.3s ease;
   }
-  // image[lazy="loading"] {
-  //   width: 45px;
-  //   height: 60px;
-  //   margin: auto;
-  // }
+
   .infinite-scroll-pr {
-    height: 1000px;
+    height: 900px;
   }
   .infinite-scroll-style {
     // position: fixed;
     height: 100%;
-    // width: 100%;
+    width: 100%;
     padding-bottom: 50px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 
     li {
-      background-color: #fff;
-    }
-    .bookImg {
-      width: 45px;
-      touch-action: none;
-      height: 60px;
+      background-color: #ccc;
+      .bookImg {
+        width: 45px;
+        touch-action: none;
+        height: 60px;
+      }
+      img[lazy="loading"] {
+        width: 45px;
+        height: 60px;
+        // margin: auto;
+      }
     }
     .infinite-scroll-limit {
-      background-color: aqua;
-      height: 20px;
+      background-color: #fff;
+      height: 10px;
     }
   }
 </style>

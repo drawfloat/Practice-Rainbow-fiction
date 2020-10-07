@@ -49,7 +49,7 @@
     </div>
     <div class="bookMenu">
       目录
-      <router-link to="">
+      <router-link to>
         <span>最新章节：{{bookInfo.lastChapter}}</span>
       </router-link>
     </div>
@@ -99,7 +99,6 @@
           .get("/api/book/" + bookID)
           .then((res) => {
             this.bookInfo = res.data;
-            console.log("OK");
           })
           .catch((err) => {
             console.log(err);
@@ -143,6 +142,9 @@
     margin: 0;
     padding: 0;
   }
+  #header {
+    // padding-top: 40px;
+  }
   .mui-bar .mui-pull-left .mui-icon {
     padding-right: 5px;
     font-size: 28px;
@@ -170,6 +172,7 @@
   }
   .bookEle {
     display: flex;
+    // margin-top: 40px;
     // position: relative;
     background-color: #555;
     height: 150px;

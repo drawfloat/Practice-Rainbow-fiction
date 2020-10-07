@@ -24,9 +24,11 @@ var router = new VueRouter({
         path: '/myself',
         component: myself
     }, {
+        name:'bookDetail',
         path: '/details/:gender/:major',
         component: details
     }, {
+        name: 'bookInfo',
         path: '/book/:id',
         component: book
     }],
